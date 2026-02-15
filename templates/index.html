@@ -1,19 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/static/style.css">
+    <meta charset="UTF-8">
+    <title>Scraper Dinâmico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="container py-4">
 
-<h1>📈 Dados Financeiros</h1>
+<h2> Scraper Dinâmico</h2>
 
-<button onclick="renderTabela()">Tabela</button>
-<button onclick="renderCards()">Cards</button>
-<button onclick="renderGrafico()">Gráfico</button>
+<div class="mb-3">
+    <label>URL</label>
+    <input id="url" class="form-control" placeholder="https://exemplo.com">
+</div>
 
-<div id="content"></div>
+<div class="mb-3">
+    <label>Container dos dados</label>
+    <input id="container" class="form-control" placeholder="#tabelaDados">
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="/static/script.js"></script>
+<hr>
+
+<h5>Seletores dos campos</h5>
+
+<input id="administradora" class="form-control mb-2" placeholder="Administradora (.administradora)">
+<input id="valor_credito" class="form-control mb-2" placeholder="Valor do crédito (.valorCredito)">
+<input id="entrada" class="form-control mb-2" placeholder="Entrada (.entrada)">
+<input id="parcelas" class="form-control mb-2" placeholder="Parcelas (.qtdParcelas)">
+<input id="valor_parcelas" class="form-control mb-2" placeholder="Valor das parcelas (.valorParcelas)">
+<input id="proximo_vencimento" class="form-control mb-3" placeholder="Próximo vencimento (.proximoVencimento)">
+
+<button class="btn btn-primary" onclick="buscar()">Buscar</button>
+
+<div id="resultado" class="mt-4"></div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="../static/script.js"></script>
+
 </body>
 </html>

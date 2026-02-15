@@ -1,50 +1,69 @@
-let dados = [];
+function buscar() {
+    const params = {
+        url: $("#url").val(),
+        container: $("#container").val(),
+        administradora: $("#administradora").val(),
+        valor_credito: $("#valor_credito").val(),
+        entrada: $("#entrada").val(),
+        parcelas: $("#parcelas").val(),
+        valor_parcelas: $("#valor_parcelas").val(),
+        proximo_vencimento: $("#proximo_vencimento").val()
+    };
 
-fetch("/api/financeiro")
-  .then(res => res.json())
-  .then(json => {
-      dados = json;
-      renderTabela();
-  });
+    $("#resultado").html(`
+        <div class="text-center my-4">
+            <div class="spinner-border" role="status"></div>
+            <p class="mt-2">Buscando dados...</p>
+        </div>
+    `);
 
-function renderTabela() {
-    let html = `<table border="1">
-        <tr><th>Moeda</th><th>Valor</th></tr>`;
-
-    dados.forEach(m => {
-        html += `<tr>
-            <td>${m.nome}</td>
-            <td>${m.valor}</td>
-        </tr>`;
+    $.get("/api/scrape", params, function (data) {
+        renderTabela(data);
     });
-
-    html += `</table>`;
-    document.getElementById("content").innerHTML = html;
 }
+function renderTabela(dados) {
+    if (!dados || dados.length === 0) {
+        $("#resultado").html(`
+            <div class="alert alert-warning">
+                Nenhum dado encontrado.
+            </div>
+        `);
+        return;
+    }
 
-function renderCards() {
-    let html = "";
-    dados.forEach(m => {
-        html += `
-          <div class="card">
-            <h3>${m.nome}</h3>
-            <p>${m.valor}</p>
-          </div>
-        `;
+    const colunas = Object.keys(dados[0]);
+
+    let html = `
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+    `;
+
+    colunas.forEach(col => {
+        html += `<th>${formatarTitulo(col)}</th>`;
     });
-    document.getElementById("content").innerHTML = html;
+
+    html += `</tr></thead><tbody>`;
+
+    dados.forEach(item => {
+        html += "<tr>";
+        colunas.forEach(col => {
+            html += `<td>${item[col] ?? "-"}</td>`;
+        });
+        html += "</tr>";
+    });
+
+    html += `
+                </tbody>
+            </table>
+        </div>
+    `;
+
+    $("#resultado").html(html);
 }
-
-function renderGrafico() {
-    document.getElementById("content").innerHTML = `<canvas id="chart"></canvas>`;
-
-    new Chart(document.getElementById("chart"), {
-        type: "bar",
-        data: {
-            labels: dados.map(m => m.nome),
-            datasets: [{
-                data: dados.map(m => parseFloat(m.valor.replace(",", ".")))
-            }]
-        }
-    });
+function formatarTitulo(texto) {
+    return texto
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, l => l.toUpperCase());
 }
