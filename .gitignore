@@ -1,0 +1,90 @@
+# ===============================
+# Python
+# ===============================
+__pycache__/*
+
+*.py[cod]
+*$py.class
+
+# Distribuição / build
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ===============================
+# Ambiente virtual
+# ===============================
+venv/
+.env/
+env/
+ENV/
+.venv/
+
+# ===============================
+# Variáveis de ambiente
+# ===============================
+.env
+.env.*
+*.env
+
+# ===============================
+# Logs
+# ===============================
+*.log
+logs/
+
+# ===============================
+# Banco de dados local
+# ===============================
+*.sqlite3
+db.sqlite3
+
+# ===============================
+# Testes / cobertura
+# ===============================
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+coverage.xml
+
+# ===============================
+# IDEs / Editores
+# ===============================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===============================
+# Jupyter Notebook
+# ===============================
+.ipynb_checkpoints
+
+# ===============================
+# Docker
+# ===============================
+docker-compose.override.yml
+
+# ===============================
+# Mac / Windows
+# ===============================
+.DS_Store
+Thumbs.db
